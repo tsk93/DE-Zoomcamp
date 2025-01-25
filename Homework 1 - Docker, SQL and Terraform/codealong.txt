@@ -26,7 +26,7 @@
 
 # Access http://localhost:8080 with your browser to access the pgAdmin interface. Use below credentials to log in.
 
-    Email: pgadmin@example.com
+    Email: pgadmin@pgadmin.com
     Password: pgadmin
 
 

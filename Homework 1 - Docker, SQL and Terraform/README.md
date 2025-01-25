@@ -1,47 +1,49 @@
 # Module 1 Homework: Docker & SQL
 
+Refer to codealong.txt to complete the following tasks:
 
-* [Running the Docker commands](https://google.com)
-* Homework answers
+* Create docker network to connect pgAdmin and Postgres database.
+* Create and start containers to run in pg-network.
+* Access http://localhost:8080 with your browser to access the pgAdmin interface. Use below credentials to log in.
 
-Register in [DataTalks.Club's Slack](https://datatalks.club/slack.html)
+        Email: pgadmin@pgadmin.com<br>
+        Password: pgadmin<br>
 
-Running the Docker commands
+* Setup a server with the postgres container specs as shown below.
 
-To deploy the Docker containers:
-
-# Clone the repo
-git clone https://github.com/goosethedev/de-zoomcamp-2025.git
-cd de-zoomcamp-2025/01-docker-terraform
-
-# Download the data to ingest
-wget -P ./data https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz
-wget -P ./data https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv
-
-# Setup the .env file from the example file
-# Make changes if you like
-cp .env.example .env
-
-# Deploy the containers
-docker compose up -d
-
-Then, you can access to http://localhost:8080 with your browser to access the pgAdmin interface. Use the credentials from the .env file, which by default are:
-
-    Email: pgadmin@example.com
-    Password: pgadmin
-
-Then setup a server with the container specs from the .env file. The defaults are:
-
-    Host: postgres-db
-    Port: 5432
-    DB name: ny_taxi
-    DB user: admin
-    DB password: admin
-
-Once connected, you can run queries against the ingested data.
+        Host: postgres<br>
+        Port: 5432<br>
+        DB name: ny_taxi<br>
+        DB user: postgres<br>
+        DB password: postgres<br>
 
 
-# Homework answers
+* Download data from provided links and specify database key parameters to ingest data.
+
+        URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
+    
+        python ingest_data.py \
+            --user=postgres \
+            --password=postgres \
+            --host=localhost \
+            --port=5433 \
+            --db=ny_taxi \
+            --table_name=green_taxi_trips \
+            --url=${URL}
+
+        URL2="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv"
+        
+        python ingest_data.py \
+            --user=postgres \
+            --password=postgres \
+            --host=localhost \
+            --port=5433 \
+            --db=ny_taxi \
+            --table_name=zones \
+            --url=${URL2}
+
+<br>
+
 ## Q1. Understanding docker first run
 
 Run docker with the python:3.12.8 image in an interactive mode, use the entrypoint bash.
@@ -109,7 +111,9 @@ Given the following docker-compose.yaml, what is the hostname and port that pgad
 
 Answer: postgres:5432
 
-Since the pgAdmin web server is run within a Docker container, it must communicate with the PostgreSQL instance (implicitly within the same virtual network) using its container name (not the service name) and internal port (not the one forwarded to the host).
+pgAdmin web server is run within a Docker container, it will have to communicate with the postgres database (another container) within the same virtual network using its container name and container port. As seen from the docker yaml file, the values are postgres and 5432 respectively.
+
+<br>
 
 ## Q3. Trip segmentation count
 
@@ -145,6 +149,7 @@ Result:
 |:------:|:------:|:------:|:------:| :----: |
 | 104802 | 198924 | 109603 | 27678  | 35189  |
 
+<br>
 
 ## Q4. Longest trip for each day
 
@@ -169,6 +174,7 @@ Result:
 |:------:|:------:|
 | 2019-10-31  | 515.89  |
 
+<br>
 
 ## Q5. Three biggest pickup zones
 
@@ -202,10 +208,11 @@ Result:
 | 2019-10-18 | East Harlem South | 16797.26 | 
 | 2019-10-18 | Morningside Heights | 13029.79 | 
 
+<br>
 
 ## Q6. Largest tip
 
-For the passengers picked up in Ocrober 2019 in the zone name "East Harlem North" which was the drop off zone that had the largest tip?
+For the passengers picked up in October 2019 in the zone name "East Harlem North" which was the drop off zone that had the largest tip?
 
 We need the name of the zone, not the ID.
 
@@ -230,7 +237,8 @@ Result:
 |zone|max_tip|
 |:------:|:------:|
 | JFK Airport | 87.3|
-dropoff_location 	max_tip
+
+<br>
 
 ## Q7. Terraform Workflow
 
