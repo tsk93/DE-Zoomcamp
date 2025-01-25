@@ -192,7 +192,7 @@ Answer: East Harlem North, East Harlem South, Morningside Heights
 
 Code:
 
-    select cast(lpep_pickup_datetime as date) as pickup_date, z."Zone" as Zone, count(total_amount) as total_amount
+    select cast(lpep_pickup_datetime as date) as pickup_date, z."Zone" as Zone, sum(total_amount) as total_amount
     from green_taxi_trips gt join zones z on gt."PULocationID" = z."LocationID" 
     where cast(lpep_pickup_datetime as date)='2019-10-18'
     group by cast(lpep_pickup_datetime as date),z."Zone" 
