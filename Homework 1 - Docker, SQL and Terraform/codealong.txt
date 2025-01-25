@@ -1,0 +1,62 @@
+# Create docker network to connect pgAdmin and Postgres database
+
+  docker network create pg-network
+
+
+# Create and start containers to run in pg-network
+
+  docker run -it \
+    -e PGADMIN_DEFAULT_EMAIL="pgadmin@pgadmin.com" \
+    -e PGADMIN_DEFAULT_PASSWORD="pgadmin" \
+    -p 8080:80 \
+    --network pg-network \
+    --name pgadmin3 \
+    dpage/pgadmin4:latest
+
+  docker run -it \
+      -e POSTGRES_USER="postgres" \
+      -e POSTGRES_PASSWORD="postgres" \
+      -e POSTGRES_DB="ny_taxi" \
+      -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+      -p 5433:5432 \
+      --network pg-network \
+      --name postgres \
+      postgres:17-alpine
+
+
+# Access http://localhost:8080 with your browser to access the pgAdmin interface. Use below credentials to log in.
+
+    Email: pgadmin@example.com
+    Password: pgadmin
+
+
+# Setup a server with the postgres container specs as shown below.
+
+    Host: postgres
+    Port: 5432
+    DB name: ny_taxi
+    DB user: postgres
+    DB password: postgres
+
+
+# Download data from URL and specify database key parameters to ingest data
+
+  URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz"
+  python ingest_data.py \
+    --user=postgres \
+    --password=postgres \
+    --host=localhost \
+    --port=5433 \
+    --db=ny_taxi \
+    --table_name=green_taxi_trips \
+    --url=${URL}
+
+  URL2="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv"
+  python ingest_data.py \
+    --user=postgres \
+    --password=postgres \
+    --host=localhost \
+    --port=5433 \
+    --db=ny_taxi \
+    --table_name=zones \
+    --url=${URL2}
