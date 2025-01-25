@@ -111,7 +111,7 @@ Given the following docker-compose.yaml, what is the hostname and port that pgad
 
 Answer: postgres:5432
 
-pgAdmin web server is run within a Docker container, it will have to communicate with the postgres database (another container) within the same virtual network using its container name and container port. As seen from the docker yaml file, the values are postgres and 5432 respectively.
+pgAdmin web server is run within a Docker container, it will have to communicate with the Postgres database (another container) within the same virtual network using its container name and container port. As seen from the docker yaml file, the values are postgres and 5432 respectively.
 
 <br>
 
