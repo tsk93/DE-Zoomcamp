@@ -6,16 +6,16 @@ Refer to codealong.txt to complete the following tasks:
 * Create and start containers to run in pg-network.
 * Access http://localhost:8080 with your browser to access the pgAdmin interface. Use below credentials to log in.
 
-        Email: pgadmin@pgadmin.com<br>
-        Password: pgadmin<br>
+        Email: pgadmin@pgadmin.com
+        Password: pgadmin
 
 * Setup a server with the postgres container specs as shown below.
 
-        Host: postgres<br>
-        Port: 5432<br>
-        DB name: ny_taxi<br>
-        DB user: postgres<br>
-        DB password: postgres<br>
+        Host: postgres
+        Port: 5432
+        DB name: ny_taxi
+        DB user: postgres
+        DB password: postgres
 
 
 * Download data from provided links and specify database key parameters to ingest data.
