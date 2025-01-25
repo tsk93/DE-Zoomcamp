@@ -137,15 +137,15 @@ Answer: 104,802; 198,924; 109,603; 27,678; 35,189
 Code:
     
     select sum(case when trip_distance<=1 then 1 else 0 end) as "Up to 1 mile",
-    sum(case when trip_distance>1 and trip_distance<=3 then 1 else 0 end) as "Between 1 to 3 miles",
-    sum(case when trip_distance>3 and trip_distance<=7 then 1 else 0 end) as "Between 3 to 7 miles",
-    sum(case when trip_distance>7 and trip_distance<=10 then 1 else 0 end) as "Between 7 to 10 miles",
+    sum(case when trip_distance>1 and trip_distance<=3 then 1 else 0 end) as "Between 1 and 3 miles",
+    sum(case when trip_distance>3 and trip_distance<=7 then 1 else 0 end) as "Between 3 and 7 miles",
+    sum(case when trip_distance>7 and trip_distance<=10 then 1 else 0 end) as "Between 7 and 10 miles",
     sum(case when trip_distance>10 then 1 else 0 end) as "Over 10 miles"
     from green_taxi_trips
     where lpep_pickup_datetime >= '2019-10-01' and lpep_dropoff_datetime < '2019-11-01';
 
 Result:
-|Up to 1 mile|Between 1 to 3 miles|Between 3 to 7 miles|Between 7 to 10 miles|Over 10 miles|
+|Up to 1 mile|Between 1 and 3 miles|Between 3 and 7 miles|Between 7 and 10 miles|Over 10 miles|
 |:------:|:------:|:------:|:------:| :----: |
 | 104802 | 198924 | 109603 | 27678  | 35189  |
 
