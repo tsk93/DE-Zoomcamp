@@ -21,8 +21,7 @@ services:
         - "8080:80"
       volumes:
         - vol-pgadmin_data:/var/lib/pgadmin4
-         
-  volumes:
+volumes:
     vol-pgdata:
       name: vol-pgdata
     vol-pgadmin_data:
