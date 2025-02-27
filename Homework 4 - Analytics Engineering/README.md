@@ -31,7 +31,7 @@ The first statement is true because without the value of that env variable it wo
 
 ## Question 5: Taxi Quarterly Revenue Growth
 
-Refer to 
+Refer to fct_taxi_trips_quarterly_revenue.sql
 
 Answer: green: {best: 2020/Q1, worst: 2020/Q2}, yellow: {best: 2020/Q1, worst: 2020/Q2}
 
